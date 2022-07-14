@@ -1,0 +1,16 @@
+.search_bar_div{
+    display: flex;
+    margin-left: 30%;
+    margin-top: 5%;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 40%;
+
+}
+
+.Search_bar_input{
+    border: none;
+    width: 100%;
+    font-size: 30px;
+    margin: 0px;
+}
