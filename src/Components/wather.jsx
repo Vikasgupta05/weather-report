@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import { Box } from "@mui/system";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
+import Graph1 from "./graph_1";
+import sunny from '../Images/sunny.png'
+
 
 
 
@@ -61,12 +64,28 @@ export const Weather = () => {
             </button>
 
 
-            <div>
-                <div>
-                    <p>
-                        {weather}°C
-                    </p>
+            <div className="dispaly_weather">
+                <div className="temp_div">
+
+                    <span>
+                        <p >
+                            Temprature :   {weather}°C
+                        </p>
+                    </span>
+
+                    <span  >
+
+                        
+                         <img src={sunny} alt="" />
+
+                    </span>
                 </div>
+
+                <div className="Graph1">
+
+                    <Graph1/>
+                </div>
+
             </div>
         </div>
     )
