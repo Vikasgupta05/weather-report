@@ -9,11 +9,11 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 
-
-
 export const Weather = () => {
 
     const [search , setSearch] = useState()
+
+    const [weather , setWeather] = useState()
 
     useEffect(() => {
         data()
@@ -22,15 +22,25 @@ export const Weather = () => {
 
     const data = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
-            console.log(res.data)
+            console.log("data:", res.data)
+            console.log( "log",res.data.coord.lon)
+            console.log( "lat",res.data.coord.lat)
+            setWeather(res.data.main.temp)
         })
     }
+
+    const get_lat_Log = (lat , lon) => {
+        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
+
+        })
+    }
+
+
 
     return(
 
 
         <div>
-
             <div className="search_bar_div">
                 <LocationOnIcon/>
                 <input 
@@ -49,6 +59,15 @@ export const Weather = () => {
             >
                     Search
             </button>
+
+
+            <div>
+                <div>
+                    <p>
+                        {weather}°C
+                    </p>
+                </div>
+            </div>
         </div>
     )
 }
