@@ -7,6 +7,8 @@ import { Box } from "@mui/system";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import Graph1 from "./graph_1";
+import Graph2 from "./graph_2";
+
 import sunny from '../Images/sunny.png'
 
 
@@ -18,14 +20,22 @@ export const Weather = () => {
     const [weather , setWeather] = useState()
     const [pressure ,  setPressure] = useState()
     const [humdity ,  setHumdity] = useState()
+    const [sunrise ,  setSunrise] = useState()
+    const [sunset ,  setSunset] = useState()
+
 
 
     useEffect(() => {
+
+        
         data()
     },[])
 
 
     const data = () => {
+
+
+
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
             console.log("data:", res.data)
             console.log( "log",res.data.coord.lon)
@@ -33,8 +43,8 @@ export const Weather = () => {
             setWeather(res.data.main.temp)
             setPressure(res.data.main.pressure)
             setHumdity(res.data.main.humidity)
-
-
+            setSunrise(res.data.sys.sunrise)
+            setSunset(res.data.sys.sunset)
 
             
         })
@@ -54,22 +64,28 @@ export const Weather = () => {
         <div>
             <div className="search_bar_div">
                 <LocationOnIcon/>
-                <input 
-                    type="text" 
-                    placeholder="Search" 
-                    className="Search_bar_input"
-                    onChange={(el) => {
-                    setSearch(el.target.value)
-                    }}    
-                />
-                <SearchIcon/>
+                    <input 
+                        type="text" 
+                        placeholder="Search" 
+                        className="Search_bar_input"
+                        
+                        onKeyDown={e => e.key === 'Enter' && data}
+                        onChange={(el) => {
+                        setSearch(el.target.value)
+
+                        }}    
+                    />
+                    <SearchIcon
+                        onClick={data} 
+                    />
+
             </div>
 
-            <button
+            {/* <button
                 onClick={data}
             >
                     Search
-            </button>
+            </button> */}
 
 
 
@@ -136,7 +152,19 @@ export const Weather = () => {
                     </span>
                 </div>
 
-        
+                <div className="sunrise_set">
+                    <span>
+                        <p className="sunrise"> <a>Sunrise</a> <br />{new Date(sunrise*1000).toLocaleString().slice(11, 15)}am</p> 
+                    </span>
+
+                    <span>
+                        <p className="sunset"><a>Sunset</a> <br />{new Date(sunset*1000).toLocaleString().slice(11, 15)}pm</p>
+                    </span>
+                </div>
+
+                <div className="graph_2">
+                      <Graph2/>
+                </div>
 
             </div>
         </div>

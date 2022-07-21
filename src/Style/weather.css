@@ -8,8 +8,11 @@
 
 }
 
+
 .Search_bar_input{
     border: none;
+    outline: none;
+    border-color: none;
     width: 100%;
     font-size: 30px;
     margin: 0px;
@@ -67,4 +70,21 @@
 }
 
 
+.sunrise_set {
+    display: flex;
+    justify-content: space-between;
+}
 
+.sunrise_set p a{ 
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px
+
+}
+
+
+
+.graph_2{
+    width: 80%;
+    margin: auto;
+}

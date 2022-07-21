@@ -1,8 +1,5 @@
 import React from "react";
 import Chart from "react-apexcharts";
-import "../App.css";
-
-
 
 function Graph1() {
     var obj = {
