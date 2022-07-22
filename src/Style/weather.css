@@ -142,11 +142,11 @@
   height: 55%;
 }
 
-/* .image {
+.image_pick_div {
   margin-bottom: -10PX;
   height: 50%;
   width: 30%;
-} */
+}
 
 .Weather_status {
   font-weight: 700;
@@ -154,20 +154,4 @@
   font-family: sans-serif;
 }
 
-.TempInfo {
-  margin-left: 20px;
-  margin-top: 20px;
-}
-
-.temp1{
-    font-weight: 600;
-    font-size: 50px;
-    margin-top: -10px;
-}
-.tempimg{
-  margin-top: 10px;
-  width: 5%;
-  margin-left: 1%;
-
-}
 

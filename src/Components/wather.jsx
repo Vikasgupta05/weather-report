@@ -9,7 +9,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import Graph1 from "./graph_1";
 import Graph2 from "./graph_2";
 
-import sunny from '../Images/sunny.png'
+import sun from '../Images/sun.png'
+import cloud from "../Images/cloud.png"
+import rain from "../Images/rain.png"
+
 
 
 
@@ -22,6 +25,7 @@ export const Weather = () => {
     const [humdity ,  setHumdity] = useState()
     const [sunrise ,  setSunrise] = useState()
     const [sunset ,  setSunset] = useState()
+    const [weatherImage , setWeatherImage] = useState()
 
   const [list, setList] = useState([]);
   const [arraylist, setarraylist] = useState([]);
@@ -95,6 +99,18 @@ export const Weather = () => {
         }
     }
 
+    // const checkImage = (e) => {
+
+    //     if(e.weather[0].main == "Rain"){
+    //         setWeatherImage(rain)
+    //     }
+    //     else if(e.weather[0].main == "Clear"){
+    //         setWeatherImage(sun)
+    //     }
+    //     else{
+    //         setWeatherImage(cloud)
+    //     }
+    // }
 
     return(
 
@@ -130,7 +146,16 @@ export const Weather = () => {
                             <span className="span">Min  {e.temp.min.toFixed()}</span>
                             </div>
                             <div className="image_div">
-                            {/* <img className="image" src={(e.weather[0].main == "Clear") ? sunny : (e.weather[0].main == "Rain") ? rainy : cloudy} /> */}
+                            <img className="image_pick_div" src={rain } />
+
+                            {/* <img className="image_pick_div" 
+
+                                src={weatherImage}
+                                onChange={checkImage(e)}
+                             /> */}
+
+
+                           
                             <p className='Weather_status'>{e.weather[0].main}</p>
                             </div>
                         </div>
@@ -151,7 +176,7 @@ export const Weather = () => {
                     <span  >
 
                         
-                         <img src={sunny} alt="" />
+                         <img src={sun} alt="" />
 
                     </span>
 
