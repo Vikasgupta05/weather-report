@@ -31,9 +31,9 @@ function Graph2() {
           },
         };    
     return (
-      <div className="LowerGraph1">
-        <div className="LowerGraph2">
-          <div className="LowerGraph3">
+      <div >
+        <div >
+          <div >
             <Chart
               options={obj.options}
               series={obj.series}

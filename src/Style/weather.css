@@ -1,90 +1,173 @@
 .search_bar_div{
-    display: flex;
-    margin-left: 30%;
-    margin-top: 5%;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 40%;
-
+  display: flex;
+  margin-left: 20%;
+  margin-top: 5%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 60%;
+  margin-bottom: 5%;
 }
 
 
 .Search_bar_input{
-    border: none;
-    outline: none;
-    border-color: none;
-    width: 100%;
-    font-size: 30px;
-    margin: 0px;
+  border: none;
+  outline: none;
+  border-color: none;
+  width: 100%;
+  font-size: 30px;
+  margin: 0px;
+  padding: 10px;
 }
 
 .Graph1 {
-    width: 80%;
-    margin: auto;
-    /* margin: 0px; */
+  width: 80%;
+  margin: auto;
+  /* margin: 0px; */
 }
 
 .dispaly_weather {
-    border: 1px solid gray;
-    width: 60%;
-    margin: auto;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border: 1px solid gray;
+  width: 60%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .temp_div {
-    display: flex;
+  display: flex;
 }
 
 .temp_div span p{
-    color: black;
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-left: 20px;
+  color: black;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 20px;
 }
 
-    
 .temp_div span img {
-    width: 30px;
+  width: 30px;
 }
-
 
 .pres_humi{
-    display: flex;
-    justify-content: space-around;
-    margin-right: 15%;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 15%;
 }
 
 .pres_humi span p {
-    width: 140%;
-    font-size: 30px;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #d8f6fe ;
+  width: 140%;
+  font-size: 30px;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #d8f6fe ;
 
 }
 
 .pres_humi span p1 {
-   color: gray;
+  color: gray;
 
 }
 
 
 .sunrise_set {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sunrise_set p a{ 
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 10px
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px
 
 }
 
 
 
 .graph_2{
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
+
+/*  */
+
+.weak_div {
+  width: 60%;
+  height: 180px;
+  margin-top: 3%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  white-space: nowrap;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.weak_days {
+  width: 100px;
+  height: 90%;
+  text-align: center;
+  display: inline-block;
+}
+
+.weak_days:hover {
+  border: 4px solid #03A9F4;
+}
+
+.weather_detail_div {
+  width: 100%;
+  height: 40%;
+}
+
+.weekdays {
+  width: 100%;
+  height: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #2a2c2e;
+}
+
+.span {
+  font-family: sans-serif;
+  font-size: 100%;
+  font-weight: bold;
+  position: relative;
+  color: #2a2c2e;
+  top: -10px;
+  padding-right: 7%;
+  display: inline-block;
+}
+
+
+.image_div {
+  width: 100%;
+  height: 55%;
+}
+
+/* .image {
+  margin-bottom: -10PX;
+  height: 50%;
+  width: 30%;
+} */
+
+.Weather_status {
+  font-weight: 700;
+  color: #959596;
+  font-family: sans-serif;
+}
+
+.TempInfo {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.temp1{
+    font-weight: 600;
+    font-size: 50px;
+    margin-top: -10px;
+}
+.tempimg{
+  margin-top: 10px;
+  width: 5%;
+  margin-left: 1%;
+
+}
+

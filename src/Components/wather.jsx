@@ -23,17 +23,34 @@ export const Weather = () => {
     const [sunrise ,  setSunrise] = useState()
     const [sunset ,  setSunset] = useState()
 
+  const [list, setList] = useState([]);
+  const [arraylist, setarraylist] = useState([]);
+
+
 
 
     useEffect(() => {
 
         
         data()
+        getlocation()
     },[])
+
+    let id;
+
+    function debounc(func , delay){
+        if(id){
+            clearTimeout(id)
+        }
+    
+        id=setTimeout (function (){
+            func()
+        },delay)
+    }
+    
 
 
     const data = () => {
-
 
 
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -45,21 +62,41 @@ export const Weather = () => {
             setHumdity(res.data.main.humidity)
             setSunrise(res.data.sys.sunrise)
             setSunset(res.data.sys.sunset)
+            // .then(data => get_len_lon(res.data.coord.lon, data.coord.lat))
 
             
         })
     }
 
-    const get_lat_Log = (lat , lon) => {
+    const get_len_lon = (lon,lat) => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
-
+                display_weather(res.data)
         })  
+    }
+    
+    const curent_status = (status) => {
+        let lat=status.coords.latitude;
+        let lon=status.coords.longitude;
+        get_len_lon(lon, lat);
     }
 
 
+    const display_weather = (data) => {
+        setarraylist(data.daily)
+        setList(data.current)
+        
+    }
+
+    const getlocation = () => { 
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(curent_status);
+        } else {
+          console.log("not getting")
+        }
+    }
+
 
     return(
-
 
         <div>
             <div className="search_bar_div">
@@ -68,8 +105,8 @@ export const Weather = () => {
                         type="text" 
                         placeholder="Search" 
                         className="Search_bar_input"
-                        
-                        onKeyDown={e => e.key === 'Enter' && data}
+
+                            onInput={debounc(data, 1000)}
                         onChange={(el) => {
                         setSearch(el.target.value)
 
@@ -78,38 +115,27 @@ export const Weather = () => {
                     <SearchIcon
                         onClick={data} 
                     />
+        </div>
 
-            </div>
-
-            {/* <button
-                onClick={data}
-            >
-                    Search
-            </button> */}
-
-
-
-            <div>
-                {/* {
-                    weather?.map((e, i) => {
-                        // console.log(e.dt)
-                        // const dateTimeStr = new Date(e.dt*1000).toLocaleString("en-US",{weekday:"long"}).slice(0,3);
+            <div className="weak_div">
+                    {
+                    arraylist?.map((e, i) => {
+                        console.log(e.dt)
+                        const datesT = new Date(e.dt*1000).toLocaleString("en-US",{weekday:"long"}).slice(0,3);
                         return (
-                        <div key={i} className="Weather_8days">
-                            <div className='Weatherdetails'>
-                            <p className="weekdays">{dateTimeStr}</p>
-                            <span className="span maxtemp">{e.temp.max.toFixed()}&deg;</span>
-                            <span className="span mintemp">{e.temp.min.toFixed()}&deg;</span>
+                        <div key={i} className="weak_days">
+                            <div className='weather_detail_div'>
+                            <p className="weekdays">{datesT}</p>
+                            <span className="span">Max  {e.temp.max.toFixed()}</span> <br />
+                            <span className="span">Min  {e.temp.min.toFixed()}</span>
                             </div>
                             <div className="image_div">
-                            <img className="image" src={(e.weather[0].main == "Clear") ? sunny : (e.weather[0].main == "Rain") ? rainy : cloudy} />
+                            {/* <img className="image" src={(e.weather[0].main == "Clear") ? sunny : (e.weather[0].main == "Rain") ? rainy : cloudy} /> */}
                             <p className='Weather_status'>{e.weather[0].main}</p>
                             </div>
                         </div>
                         )
-                    })
-                } */}
-
+                    })}
             </div>
 
 

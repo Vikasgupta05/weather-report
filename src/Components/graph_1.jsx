@@ -28,9 +28,9 @@ function Graph1() {
 
     };
     return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
+      <div >
+        <div >
+          <div >
             <Chart
               options={obj.options}
               series={obj.series}
