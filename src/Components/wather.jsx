@@ -97,6 +97,12 @@ export const Weather = () => {
         }
     }
 
+    // const Map = () => {
+    //     axios.get(`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`).then(function (res){
+    //         console.log(res)
+    //     })
+    // }
+
     // const checkImage = (e) => {
 
     //     if(e.weather[0].main == "Rain"){
@@ -212,8 +218,16 @@ export const Weather = () => {
                     </span>
                 </div>
 
+
                 <div className="graph_2">
                       <Graph2/>
+                </div>
+
+                <hr />
+
+                <div className="map_div">
+                    <iframe src={`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`}  className="Map" frameborder="0">
+                    </iframe>
                 </div>
 
             </div>

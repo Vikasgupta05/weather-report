@@ -154,4 +154,16 @@
   font-family: sans-serif;
 }
 
+.map_div{
+  border-radius: 30px;
+ 
+}
+
+.Map{
+  width:95%;
+  height: 400px;
+  padding:10px;
+  padding-bottom: 10px;
+  /* border-radius: 10px; */
+}
 
