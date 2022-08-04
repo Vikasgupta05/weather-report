@@ -46,11 +46,11 @@ export const Weather = () => {
         if(id){
             clearTimeout(id)
         }
-        else{
-            id=setTimeout(() => {
-                data()
-            },1000)
-        }
+        
+        id=setTimeout(() => {
+            data()
+        },3000)
+        
     }
 
     const Handelchange = (e) => {
@@ -103,11 +103,6 @@ export const Weather = () => {
         }
     }
 
-    // const Map = () => {
-    //     axios.get(`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`).then(function (res){
-    //         console.log(res)
-    //     })
-    // }
 
     // const checkImage = (e) => {
 
@@ -131,6 +126,7 @@ export const Weather = () => {
                         type="text" 
                         placeholder="Search" 
                         className="Search_bar_input"
+
                         onChange={Handelchange}
                     />
                     <SearchIcon
