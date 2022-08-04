@@ -113,6 +113,14 @@
   height: 40%;
 }
 
+.weak_div{
+  background-image: url("https://cdn.dribbble.com/users/2277649/screenshots/8498294/weather_dribbble_size.gif.gif");
+  margin: auto;
+  width: 65%;
+  height: 40%;
+  border-radius: 10px;
+}
+
 .weekdays {
   width: 100%;
   height: 20px;
