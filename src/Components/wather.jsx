@@ -19,6 +19,7 @@ import rain from "../Images/rain.png"
 
 export const Weather = () => {
 
+    const [alldata , allData] = useState([])
     const [search , setSearch] = useState()
     const [weather , setWeather] = useState()
     const [pressure ,  setPressure] = useState()
@@ -31,6 +32,7 @@ export const Weather = () => {
   const [arraylist, setarraylist] = useState([]);
 
 
+    console.log("ss" , alldata)
 
 
     useEffect(() => {
@@ -44,21 +46,25 @@ export const Weather = () => {
         if(id){
             clearTimeout(id)
         }
-    
-        id=setTimeout (() => {
-            data()
-        },3000)
+        else{
+            id=setTimeout(() => {
+                data()
+            },1000)
+        }
+    }
+
+    const Handelchange = (e) => {
+        setSearch(e.target.value)
+        debounc()
     }
     
 
 
+
     const data = () => {
-
-
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
             console.log("data:", res.data)
-            console.log( "log",res.data.coord.lon)
-            console.log( "lat",res.data.coord.lat)
+            allData(res.data)
             setWeather(res.data.main.temp)
             setPressure(res.data.main.pressure)
             setHumdity(res.data.main.humidity)
@@ -125,23 +131,56 @@ export const Weather = () => {
                         type="text" 
                         placeholder="Search" 
                         className="Search_bar_input"
-                        
-                            // oninput="debounc(searchmovie, 1000)"
-
-                            onInput={debounc(data, 1000)}
-                        onChange={(el) => {
-                            setSearch(el.target.value)
-                        }}    
+                        onChange={Handelchange}
                     />
                     <SearchIcon
                         onClick={data} 
                     />
+                    
+
+
+        </div>
+
+        <div> 
+
+
+            {/* {
+                alldata.map((e) => (
+                    // <p>{e.name}</p>
+                    <p>vikas</p>
+                ))
+            } */}
+                
+                {/* {
+                arraylist.map((e) => (
+
+                 <p>{e.title}</p>
+
+                }
+
+                ))
+                 */}
+
+{/* 
+            
+                list.map((el) => {
+                    if(el.title.includes(searchtext) ){
+                        return  (
+                            <li key={el.id}>
+                                {el.title}
+                            </li>            
+                        )
+                    }
+            
+                }) */}
+
+
         </div>
 
             <div className="weak_div">
                     {
                     arraylist?.map((e, i) => {
-                        console.log(e.dt)
+                        // console.log(e.dt)
                         const datesT = new Date(e.dt*1000).toLocaleString("en-US",{weekday:"long"}).slice(0,3);
                         return (
                         <div key={i} className="weak_days">
