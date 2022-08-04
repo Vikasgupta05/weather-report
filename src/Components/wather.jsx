@@ -34,22 +34,20 @@ export const Weather = () => {
 
 
     useEffect(() => {
-
-        
         data()
         getlocation()
     },[])
 
-    let id;
 
-    function debounc(func , delay){
+    var id;
+    function debounc(){
         if(id){
             clearTimeout(id)
         }
     
-        id=setTimeout (function (){
-            func()
-        },delay)
+        id=setTimeout (() => {
+            data()
+        },3000)
     }
     
 
@@ -121,11 +119,12 @@ export const Weather = () => {
                         type="text" 
                         placeholder="Search" 
                         className="Search_bar_input"
+                        
+                            // oninput="debounc(searchmovie, 1000)"
 
                             onInput={debounc(data, 1000)}
                         onChange={(el) => {
-                        setSearch(el.target.value)
-
+                            setSearch(el.target.value)
                         }}    
                     />
                     <SearchIcon
