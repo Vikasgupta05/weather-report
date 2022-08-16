@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Box } from "@mui/system";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
-import Graph1 from "./graph_1";
+import {Graph1} from "./graph_1";
 import Graph2 from "./graph_2";
 
 import sun from '../Images/sun.png'
@@ -15,47 +15,41 @@ import rain from "../Images/rain.png"
 
 
 
-
-
 export const Weather = () => {
 
+    const [hour , setHour] = useState([])
+
+
+    // console.log("hour" , hour)
     const [alldata , allData] = useState([])
+    const [lat , setLat] = useState()
+    const [lon , setLon] = useState()
+
+    
+
     const [search , setSearch] = useState()
     const [weather , setWeather] = useState()
     const [pressure ,  setPressure] = useState()
     const [humdity ,  setHumdity] = useState()
     const [sunrise ,  setSunrise] = useState()
     const [sunset ,  setSunset] = useState()
-    const [weatherImage , setWeatherImage] = useState()
 
   const [list, setList] = useState([]);
   const [arraylist, setarraylist] = useState([]);
 
 
-    console.log("ss" , alldata)
 
 
-    useEffect(() => {
-        data()
-        getlocation()
-    },[])
+ 
 
 
-    var id;
-    function debounc(){
-        if(id){
-            clearTimeout(id)
-        }
-        
-        id=setTimeout(() => {
-            data()
-        },3000)
-        
-    }
+    console.log( "ss" ,lat , lon)
+
+
 
     const Handelchange = (e) => {
         setSearch(e.target.value)
-        debounc()
+        // debounc()
     }
     
 
@@ -65,43 +59,64 @@ export const Weather = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
             console.log("data:", res.data)
             allData(res.data)
+            setLat(res.data.coord.lat)
+            setLon(res.data.coord.lon)
+           
+
+
+            
+            
+            
             setWeather(res.data.main.temp)
             setPressure(res.data.main.pressure)
             setHumdity(res.data.main.humidity)
             setSunrise(res.data.sys.sunrise)
             setSunset(res.data.sys.sunset)
-            // .then(data => get_len_lon(res.data.coord.lon, data.coord.lat))
+
 
             
         })
+
+        GetLocation()
     }
 
-    const get_len_lon = (lon,lat) => {
+    useEffect(() => {
+        data()
+    },[])
+
+    useEffect(() => {
+        if(!!lat && !!lon){
+            GetLocation()
+        }
+    },[lat, lon])
+    
+    // const curent_status = (alldata) => {
+    //     let lat=alldata.coords.lat;
+    //     let lon=alldata.coords.lon;
+
+    //     get_len_lon(lat,lon)
+    //     // console.log("lat"  , lat  , "lon :" , lon ) 
+    // }
+
+
+    const GetLocation = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
-                display_weather(res.data)
+                console.log("checkddd" , res.data)
+
+                setHour(res.data.hourly)
         })  
     }
     
-    const curent_status = (status) => {
-        let lat=status.coords.latitude;
-        let lon=status.coords.longitude;
-        get_len_lon(lon, lat);
-    }
 
 
-    const display_weather = (data) => {
-        setarraylist(data.daily)
-        setList(data.current)
-        
-    }
 
-    const getlocation = () => { 
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(curent_status);
-        } else {
-          console.log("not getting")
-        }
-    }
+
+
+    // const getlocation = () => { 
+    //     if (navigator.geolocation) {
+    //       navigator.geolocation.getCurrentPosition(curent_status);
+    //     } 
+    // }
 
 
     // const checkImage = (e) => {
@@ -140,43 +155,11 @@ export const Weather = () => {
         <div> 
 
 
-            {/* {
-                alldata.map((e) => (
-                    // <p>{e.name}</p>
-                    <p>vikas</p>
-                ))
-            } */}
-                
-                {/* {
-                arraylist.map((e) => (
-
-                 <p>{e.title}</p>
-
-                }
-
-                ))
-                 */}
-
-{/* 
-            
-                list.map((el) => {
-                    if(el.title.includes(searchtext) ){
-                        return  (
-                            <li key={el.id}>
-                                {el.title}
-                            </li>            
-                        )
-                    }
-            
-                }) */}
-
-
         </div>
 
             <div className="weak_div">
                     {
                     arraylist?.map((e, i) => {
-                        // console.log(e.dt)
                         const datesT = new Date(e.dt*1000).toLocaleString("en-US",{weekday:"long"}).slice(0,3);
                         return (
                         <div key={i} className="weak_days">
@@ -224,7 +207,9 @@ export const Weather = () => {
 
                 <div className="Graph1">
 
-                    <Graph1/>
+                    <div>{data && <Graph1 data={hour} />}</div>
+
+
                 </div>
 
                 <hr />
@@ -245,14 +230,18 @@ export const Weather = () => {
 
                 <div className="sunrise_set">
                     <span>
-                        <p className="sunrise"> <a>Sunrise</a> <br />{new Date(sunrise*1000).toLocaleString().slice(11, 15)}am</p> 
+                        {/* <p className="sunrise"> <a>Sunrise</a> <br />{new Date(new Date().toLocaleDateString())}am</p>  */}
+                        <p className="sunset"><a>Sunrise</a> <br />{new Date(sunset*1000).toLocaleString().slice(11,14)}am</p>
+
                     </span>
 
                     <span>
-                        <p className="sunset"><a>Sunset</a> <br />{new Date(sunset*1000).toLocaleString().slice(11, 15)}pm</p>
+                        <p className="sunset"><a>Sunset</a> <br />{new Date(sunrise*1000).toLocaleString().slice(11,14)}pm</p>
                     </span>
                 </div>
 
+                        {/* const sunrise = ; 
+                        const sunset = new Date(new Date().toLocaleDateString() + ' ' + this.state.sunset);  */}
 
                 <div className="graph_2">
                       <Graph2/>

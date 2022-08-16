@@ -1,48 +1,41 @@
-import React from "react";
+import React  from 'react';
 import Chart from "react-apexcharts";
 
-function Graph1() {
-    var obj = {
-      options: {
-        chart: {
-          zoom:{
-            enabled:false
-          }
-        },
-        stroke: {
-          curve: 'smooth',
-        },
-        xaxis: {
-          categories: ["","9","10","11","12","1","2","3","4","5","6","7","8","9"]
-        },
-        dataLabels: {
-          enabled: false
-        }
-      },
-      series: [
+export const Graph1=({data})=>{
+
+  // console.log("data" , data)
+
+    var currentday = new Date();
+    var currentdayHour = currentday.getHours();
+    var totalHours =[];
+    for(var i= currentdayHour; i<=currentdayHour+12;i++){
+      totalHours.push(i)
+    }
+    // console.log("totalHours",totalHours)
+
+
+    var dailyHoursData= [];
+    for(var j=currentdayHour; j<currentdayHour+12; j++){
+      dailyHoursData.push(Math.round(data[j].temp))
+    }
+
+    console.log("dailyHoursData",dailyHoursData)
+
+    const series = [
         {
-          name: "series-1",
-          data: [21,24,29,31,34,39,40,47,45,41,38,35,30,25]
+          name: "temp",
+          data: dailyHoursData
         }
-      ],
-
-    };
-    return (
-      <div >
-        <div >
-          <div >
-            <Chart
-              options={obj.options}
-              series={obj.series}
-              type="area"
-              width="100%"
-              align="center"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-
-export default Graph1;
+      ];
+      const options = {
+        xaxis: {
+          categories: totalHours
+        },
+        dataLabels:{enabled: false}
+      };     
+      return <
+        Chart type="area" 
+        series={series} 
+        options={options}   
+      />;
+}
