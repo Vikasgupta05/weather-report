@@ -1,12 +1,11 @@
 .search_bar_div{
   display: flex;
-  margin-left: 20%;
+  margin-left: 17.5%;
   margin-top: 5%;
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  width: 60%;
-  margin-bottom: 5%;
+  width: 65%;
 }
 
 
@@ -28,7 +27,7 @@
 
 .dispaly_weather {
   border: 1px solid gray;
-  width: 60%;
+  width: 65%;
   margin: auto;
   margin-top: 5%;
   border-radius: 10px;
@@ -168,6 +167,20 @@
   height: 400px;
   padding:10px;
   padding-bottom: 10px;
-  /* border-radius: 10px; */
+}
+
+.allstates{
+  margin: 0px;
+  margin-left: 17.5%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 65%;
+}
+
+.allstates h3 {
+  text-align: left;
+  margin-left: 5%;
+
 }
 
