@@ -76,48 +76,9 @@ export const Weather = () => {
     // }
 
 
-    // const checkImage = (e) => {
-
-    //     if(e.weather[0].main == "Rain"){
-    //         setWeatherImage(rain)
-    //     }
-    //     else if(e.weather[0].main == "Clear"){
-    //         setWeatherImage(sun)
-    //     }
-    //     else{
-    //         setWeatherImage(cloud)
-    //     }
-    // }    
-    
-    // console.log("Allstate" , Allstate)
-
-    // var count=0
-
-    // for(var k=0; k<Allstate.length; k++){
-
-    //     if((Allstate[k].name).includes(search)){
-    //         console.log(Allstate[k].name)
-    //     }
-    //    console.log(Allstate[k].name)
-    // }
-
-    
-
-
-
     return(
 
         <div>
-
-            {/* <div>
-                Change theme
-
-                <div>
-                    <div ></div>
-                </div>
-            </div> */}
-
-
             <div className="search_bar_div">
                 <LocationOnIcon/>
                 <input 
@@ -167,16 +128,7 @@ export const Weather = () => {
                             <span className="span">Min  {e.temp.min.toFixed()}</span>
                             </div>
                             <div className="image_div">
-                            <img className="image_pick_div" src={rain } />
-
-                            {/* <img className="image_pick_div" 
-
-                                src={weatherImage}
-                                onChange={checkImage(e)}
-                             /> */}
-
-
-                           
+                            <img className="image_pick_div" src={(e.weather[0].main == "Rain") ? rain  : ((e.weather[0].main == "Clouds") ? cloud  : sun)} alt="" />
                             <p className='Weather_status'>{e.weather[0].main}</p>
                             </div>
                         </div>
