@@ -89,32 +89,20 @@ export const Weather = () => {
             GetLocation()
         }
     },[lat, lon])
-    
-    // const curent_status = (alldata) => {
-    //     let lat=alldata.coords.lat;
-    //     let lon=alldata.coords.lon;
 
-    //     get_len_lon(lat,lon)
-    //     // console.log("lat"  , lat  , "lon :" , lon ) 
-    // }
 
 
     const GetLocation = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
                 console.log("checkddd" , res.data)
-
                 setHour(res.data.hourly)
+                setarraylist(res.data.daily)
         })  
     }
     
-
-
-
-
-
-    // const getlocation = () => { 
+    // const CurrentLocation = () => { 
     //     if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition(curent_status);
+    //       navigator.geolocation.getCurrentPosition();
     //     } 
     // }
 
@@ -137,26 +125,20 @@ export const Weather = () => {
         <div>
             <div className="search_bar_div">
                 <LocationOnIcon/>
-                    <input 
-                        type="text" 
-                        placeholder="Search" 
-                        className="Search_bar_input"
+                <input 
+                    type="text" 
+                    placeholder="Search" 
+                    className="Search_bar_input"
+                    onChange={Handelchange}
+                />
 
-                        onChange={Handelchange}
-                    />
-                    <SearchIcon
-                        onClick={data} 
-                    />
-                    
-
-
-        </div>
-
+                <SearchIcon
+                    onClick={data} 
+                />
+            </div>
         <div> 
 
-
         </div>
-
             <div className="weak_div">
                     {
                     arraylist?.map((e, i) => {
@@ -189,7 +171,6 @@ export const Weather = () => {
 
             <div className="dispaly_weather">
                 <div className="temp_div">
-
                     <span>
                         <p >
                             Temprature :   {weather}°C
@@ -197,19 +178,12 @@ export const Weather = () => {
                     </span>
 
                     <span  >
-
-                        
                          <img src={sun} alt="" />
-
                     </span>
-
                 </div>
 
                 <div className="Graph1">
-
                     <div>{data && <Graph1 data={hour} />}</div>
-
-
                 </div>
 
                 <hr />

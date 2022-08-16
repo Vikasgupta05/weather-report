@@ -23,7 +23,7 @@ function Graph2() {
               curve: 'smooth'
             },
             xaxis: {
-              categories: ["5am","1pm","6pm"]
+              categories: ["5am","1pm","6pm" ]
             },
             yaxis:{
                 show:false

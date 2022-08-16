@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 
 export const Graph1=({data})=>{
 
-  // console.log("data" , data)
+  console.log("data" , data)
 
     var currentday = new Date();
     var currentdayHour = currentday.getHours();
@@ -13,12 +13,14 @@ export const Graph1=({data})=>{
     }
     // console.log("totalHours",totalHours)
 
-
+    console.log("currentdayHour" , currentdayHour)
     var dailyHoursData= [];
-    for(var j=currentdayHour; j<currentdayHour+12; j++){
-      dailyHoursData.push(Math.round(data[j].temp))
+    if(data){
+      for(var j=0; j<data.length-36; j++){
+          dailyHoursData.push(Math.round(data[j].temp))
+      }
     }
-
+    
     console.log("dailyHoursData",dailyHoursData)
 
     const series = [
