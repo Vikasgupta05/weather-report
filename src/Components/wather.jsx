@@ -31,11 +31,12 @@ export const Weather = () => {
     const [arraylist, setarraylist] = useState([]);
 
     const Handelchange = (e) => {
-        setSearch(e.target.value)
+        if(search.length == 0){
+            setSearch(e.target.value.toUpperCase())
+        }else{
+            setSearch(e.target.value)
+        }
     }
-
-
-    console.log("search" , search)
 
 
     const data = () => {
@@ -117,6 +118,7 @@ export const Weather = () => {
                     placeholder="Search" 
                     className="Search_bar_input"
                     onChange={Handelchange}
+                    value={search}
                 />
 
                 <SearchIcon
@@ -130,11 +132,14 @@ export const Weather = () => {
                 {
                     Allstate.map((el) => {
                         if(el.name.includes(search) ){
-                            return  (
-                                <div >
-                                <h3>{ el.name}</h3> 
-                                </div>            
-                            )
+                            if(search !== el.name){
+                                return  (
+                                    <div >
+                                    <h3 onClick={()=>setSearch(el.name)}>{ el.name}</h3> 
+                                    </div>            
+                                )
+                            }
+                            
                         }
                     })
                 }
