@@ -31,11 +31,8 @@ export const Weather = () => {
     const [arraylist, setarraylist] = useState([]);
 
     const Handelchange = (e) => {
-        if(search.length == 0){
-            setSearch(e.target.value.toUpperCase())
-        }else{
-            setSearch(e.target.value)
-        }
+        setSearch(e.target.value)
+        console.log(search.length)
     }
 
 
@@ -94,15 +91,15 @@ export const Weather = () => {
     
     // console.log("Allstate" , Allstate)
 
-    var count=0
+    // var count=0
 
-    for(var k=0; k<Allstate.length; k++){
+    // for(var k=0; k<Allstate.length; k++){
 
-        if((Allstate[k].name).includes(search)){
-            console.log(Allstate[k].name)
-        }
+    //     if((Allstate[k].name).includes(search)){
+    //         console.log(Allstate[k].name)
+    //     }
     //    console.log(Allstate[k].name)
-    }
+    // }
 
     
 
@@ -111,6 +108,16 @@ export const Weather = () => {
     return(
 
         <div>
+
+            {/* <div>
+                Change theme
+
+                <div>
+                    <div ></div>
+                </div>
+            </div> */}
+
+
             <div className="search_bar_div">
                 <LocationOnIcon/>
                 <input 
@@ -131,11 +138,13 @@ export const Weather = () => {
             <div className="allstates">
                 {
                     Allstate.map((el) => {
-                        if(el.name.includes(search) ){
-                            if(search !== el.name){
+
+                      let name =   el.name.toLocaleLowerCase()
+                        if(name.includes(search) ){
+                            if(search !== name){
                                 return  (
                                     <div >
-                                    <h3 onClick={()=>setSearch(el.name)}>{ el.name}</h3> 
+                                    <h3 onClick={()=>setSearch(name)}>{ name}</h3> 
                                     </div>            
                                 )
                             }
