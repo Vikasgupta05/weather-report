@@ -29,12 +29,13 @@ export const Weather = () => {
     const [sunrise ,  setSunrise] = useState()
     const [sunset ,  setSunset] = useState()
     const [arraylist, setarraylist] = useState([]);
+    const [coordinates, setCoordinates] = useState({});
+
+
 
     const Handelchange = (e) => {
         setSearch(e.target.value)
-        console.log(search.length)
     }
-
 
     const data = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -68,13 +69,26 @@ export const Weather = () => {
                 setarraylist(res.data.daily)
         })  
     }
-    
-    // const CurrentLocation = () => { 
-    //     if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition();
-    //     } 
-    // }
 
+
+    useEffect(()=>{
+        navigator.geolocation.getCurrentPosition(
+          ({ coords: { latitude, longitude } }) => {
+            setCoordinates({ lat: latitude, lng: longitude });
+          }
+        );
+    },[])  
+  
+    useEffect(()=>{
+        if (coordinates.lat !== undefined) {
+            setLat(coordinates.lat)
+            setLon(coordinates.lng)
+        }
+    },[coordinates])
+  
+  
+    // console.log("coordinates" , coordinates)
+    
 
     return(
 
@@ -109,7 +123,6 @@ export const Weather = () => {
                                     </div>            
                                 )
                             }
-                            
                         }
                     })
                 }
