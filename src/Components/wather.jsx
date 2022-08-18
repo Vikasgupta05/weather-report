@@ -1,6 +1,6 @@
 import React from "react";
 import "../Style/weather.css"
-import { useState } from "react";
+import { useState , useRef } from "react";
 import axios from "axios"
 import { useEffect } from "react";
 import { Box } from "@mui/system";
@@ -12,8 +12,6 @@ import sun from '../Images/sun.png'
 import cloud from "../Images/cloud.png"
 import rain from "../Images/rain.png"
 import Allstate from "./CityData.js"
-
-
 
 
 export const Weather = () => {
@@ -32,10 +30,17 @@ export const Weather = () => {
     const [coordinates, setCoordinates] = useState({});
 
 
-
     const Handelchange = (e) => {
         setSearch(e.target.value)
+        debounc()
     }
+
+
+    useEffect(() => {
+        if(search){
+            data()
+        }
+    },[])
 
     const data = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -52,9 +57,7 @@ export const Weather = () => {
         GetLocation()
     }
 
-    useEffect(() => {
-        data()
-    },[])
+
 
     useEffect(() => {
         if(!!lat && !!lon){
@@ -86,8 +89,18 @@ export const Weather = () => {
         }
     },[coordinates])
   
-  
     // console.log("coordinates" , coordinates)
+
+
+    var id;
+    function debounc(){
+            if(id){
+                clearTimeout(id)
+            }
+            id=setTimeout(()=>{
+            data()
+        },3000)
+    }
     
 
     return(
@@ -100,6 +113,8 @@ export const Weather = () => {
                     placeholder="Search" 
                     className="Search_bar_input"
                     onChange={Handelchange}
+                    // oninput={debounc(data, 1000)}
+                    // defaultValue ={"Rudrapur"}
                     value={search}
                 />
 
@@ -112,14 +127,13 @@ export const Weather = () => {
 
             <div className="allstates">
                 {
-                    Allstate.map((el) => {
-
-                      let name =   el.name.toLocaleLowerCase()
+                    Allstate.map((el , i) => {
+                        let name =   el.name.toLocaleLowerCase()
                         if(name.includes(search) ){
                             if(search !== name){
                                 return  (
-                                    <div >
-                                    <h3 onClick={()=>setSearch(name)}>{ name}</h3> 
+                                    <div key={i} >
+                                    <h3 onClick={()=>setSearch(name)} >{ name}</h3> 
                                     </div>            
                                 )
                             }
@@ -172,13 +186,13 @@ export const Weather = () => {
                 <div className="pres_humi">
                     <span>
                         <p>
-                            Pressure :  <p1>  {pressure} </p1>
+                            Pressure :  <span>  {pressure} </span>
                         </p>
                     </span>
 
                     <span>
                         <p>
-                        Humidity :   <p1>  {humdity}% </p1>
+                        Humidity :   <span>  {humdity}% </span>
                         </p>
                     </span>
                 </div>
@@ -200,7 +214,7 @@ export const Weather = () => {
                 <hr />
 
                 <div className="map_div">
-                    <iframe src={`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`}  className="Map" frameborder="0">
+                    <iframe  src={`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`}   className="Map" >
                     </iframe>
                 </div>
 
