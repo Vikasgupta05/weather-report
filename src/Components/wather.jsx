@@ -43,34 +43,15 @@ export const Weather = () => {
           const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coordinates.lat}&lon=${location.coordinates.lon}&appid=9102fcb602fc2c718391570e2dab5618&units=metric`
           );
-
           setSearch(response.data.city.name);
           setLat(location.coordinates.lat)
           setLon(location.coordinates.lon)
-
           console.log(response.data)
-            
         } catch (error) {
           console.error(error);
         }
     };
     
-
-    useEffect(() => {
-        if(!!location){
-            getWeatherData();
-        }
-    }, [location]);
-
-      // ===============================================================
-
-    useEffect(() => {
-        if(search){
-            data()
-        }
-    },[])
-
-
     const data = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
             // console.log("data:", res.data)
@@ -86,14 +67,11 @@ export const Weather = () => {
         GetLocation()
     }
 
- 
-
     const EnterKey = (e) => {
         if (e.key === "Enter") {
             data();
         }
     };
-
 
     const GetLocation = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -110,6 +88,19 @@ export const Weather = () => {
     },[lat, lon])
 
 
+    useEffect(() => {
+        if(!!location){
+            getWeatherData();
+        }
+    }, [location]);
+
+
+    useEffect(() => {
+        if(search){
+            data()
+        }
+    },[search])
+
     // var id;
     // function debounc(){
     //         if(id){
@@ -120,8 +111,6 @@ export const Weather = () => {
     //     },3000)
     // }
 
-
-    
 
     return(
 
