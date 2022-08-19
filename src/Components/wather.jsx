@@ -1,9 +1,7 @@
 import React from "react";
 import "../Style/weather.css"
-import { useState , useRef } from "react";
+import { useState ,useEffect, useRef } from "react";
 import axios from "axios"
-import { useEffect } from "react";
-import { Box } from "@mui/system";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import {Graph1} from "./graph_1";
@@ -11,7 +9,8 @@ import Graph2 from "./graph_2";
 import sun from '../Images/sun.png'
 import cloud from "../Images/cloud.png"
 import rain from "../Images/rain.png"
-import Allstate from "./CityData.js"
+import { City } from "country-state-city";
+import {useGeoLocation} from "./useGeoLocation";
 
 
 export const Weather = () => {
@@ -27,7 +26,8 @@ export const Weather = () => {
     const [sunrise ,  setSunrise] = useState()
     const [sunset ,  setSunset] = useState()
     const [arraylist, setarraylist] = useState([]);
-    const [coordinates, setCoordinates] = useState({});
+    const Allstate = City.getCitiesOfCountry("IN");
+    const location = useGeoLocation();
 
 
     const Handelchange = (e) => {
@@ -35,12 +35,41 @@ export const Weather = () => {
         // debounc()
     }
 
+    // ==========================================
+
+
+    const getWeatherData = async () => {
+        try {
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coordinates.lat}&lon=${location.coordinates.lon}&appid=9102fcb602fc2c718391570e2dab5618&units=metric`
+          );
+
+          setSearch(response.data.city.name);
+          setLat(location.coordinates.lat)
+          setLon(location.coordinates.lon)
+
+          console.log(response.data)
+            
+        } catch (error) {
+          console.error(error);
+        }
+    };
+    
+
+    useEffect(() => {
+        if(!!location){
+            getWeatherData();
+        }
+    }, [location]);
+
+      // ===============================================================
 
     useEffect(() => {
         if(search){
             data()
         }
     },[])
+
 
     const data = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -57,13 +86,14 @@ export const Weather = () => {
         GetLocation()
     }
 
+ 
 
-
-    useEffect(() => {
-        if(!!lat && !!lon){
-            GetLocation()
+    const EnterKey = (e) => {
+        if (e.key === "Enter") {
+            data();
         }
-    },[lat, lon])
+    };
+
 
     const GetLocation = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
@@ -73,23 +103,11 @@ export const Weather = () => {
         })  
     }
 
-
-    useEffect(()=>{
-        navigator.geolocation.getCurrentPosition(
-          ({ coords: { latitude, longitude } }) => {
-            setCoordinates({ lat: latitude, lng: longitude });
-          }
-        );
-    },[])  
-  
-    useEffect(()=>{
-        if (coordinates.lat !== undefined) {
-            setLat(coordinates.lat)
-            setLon(coordinates.lng)
+    useEffect(() => {
+        if(!!lat && !!lon){
+            GetLocation()
         }
-    },[coordinates])
-  
-    // console.log("coordinates" , coordinates)
+    },[lat, lon])
 
 
     // var id;
@@ -101,6 +119,8 @@ export const Weather = () => {
     //         data()
     //     },3000)
     // }
+
+
     
 
     return(
@@ -112,9 +132,9 @@ export const Weather = () => {
                     type="text" 
                     placeholder="Search" 
                     className="Search_bar_input"
+                    onKeyPress={  EnterKey}
                     onChange={Handelchange}
                     // oninput={debounc(data, 1000)}
-                    // defaultValue ={"Rudrapur"}
                     value={search}
                 />
 
@@ -214,7 +234,7 @@ export const Weather = () => {
                 <hr />
 
                 <div className="map_div">
-                    <iframe  src={`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`}   className="Map" >
+                    <iframe  src={`https://maps.google.com/maps?q=${search}&t=&z=13&ie=UTF8&iwloc=&output=embed`} className="Map" >
                     </iframe>
                 </div>
 
