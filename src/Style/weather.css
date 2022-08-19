@@ -113,6 +113,10 @@
 
 .weak_days:hover {
   border: 4px solid #03A9F4;
+
+  opacity: 0.6;
+  transition: 0.5s;
+  
 }
 
 .weather_detail_div {
@@ -121,11 +125,13 @@
 }
 
 .weak_div{
-  background-image: url("https://cdn.dribbble.com/users/2277649/screenshots/8498294/weather_dribbble_size.gif.gif");
+  /* background-image: url("https://cdn.dribbble.com/users/2277649/screenshots/8498294/weather_dribbble_size.gif.gif"); */
+  background-color: white;
   margin: auto;
   width: 65%;
   height: 40%;
   border-radius: 10px;
+  margin-top: 5%;
 }
 
 .weekdays {

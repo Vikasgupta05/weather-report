@@ -32,7 +32,7 @@ export const Weather = () => {
 
     const Handelchange = (e) => {
         setSearch(e.target.value)
-        debounc()
+        // debounc()
     }
 
 
@@ -92,15 +92,15 @@ export const Weather = () => {
     // console.log("coordinates" , coordinates)
 
 
-    var id;
-    function debounc(){
-            if(id){
-                clearTimeout(id)
-            }
-            id=setTimeout(()=>{
-            data()
-        },3000)
-    }
+    // var id;
+    // function debounc(){
+    //         if(id){
+    //             clearTimeout(id)
+    //         }
+    //         id=setTimeout(()=>{
+    //         data()
+    //     },3000)
+    // }
     
 
     return(
@@ -151,8 +151,8 @@ export const Weather = () => {
                         <div key={i} className="weak_days">
                             <div className='weather_detail_div'>
                             <p className="weekdays">{datesT}</p>
-                            <span className="span">Max  {e.temp.max.toFixed()}</span> <br />
-                            <span className="span">Min  {e.temp.min.toFixed()}</span>
+                            <span className="span">Max  {e.temp.max.toFixed()}°</span> <br />
+                            <span className="span">Min  {e.temp.min.toFixed()}°</span>
                             </div>
                             <div className="image_div">
                             <img className="image_pick_div" src={(e.weather[0].main == "Rain") ? rain  : ((e.weather[0].main == "Clouds") ? cloud  : sun)} alt="" />
@@ -186,7 +186,7 @@ export const Weather = () => {
                 <div className="pres_humi">
                     <span>
                         <p>
-                            Pressure :  <span>  {pressure} </span>
+                            Pressure :  <span>  {pressure}hpa </span>
                         </p>
                     </span>
 
