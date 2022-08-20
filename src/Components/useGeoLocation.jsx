@@ -15,7 +15,6 @@ export const  useGeoLocation = () => {
     });
   };
 
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onSuccess);
   }, []);

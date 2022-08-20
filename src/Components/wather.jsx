@@ -32,11 +32,7 @@ export const Weather = () => {
 
     const Handelchange = (e) => {
         setSearch(e.target.value)
-        // debounc()
     }
-
-    // ==========================================
-
 
     const getWeatherData = async () => {
         try {
@@ -76,8 +72,8 @@ export const Weather = () => {
     const GetLocation = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=38d793fd557896e87ffc86c502e4dac0&units=metric`).then(function(res) {
                 // console.log("checkddd" , res.data)
-                setHour(res.data.hourly)
-                setarraylist(res.data.daily)
+            setHour(res.data.hourly)
+            setarraylist(res.data.daily)
         })  
     }
 
@@ -101,17 +97,6 @@ export const Weather = () => {
         }
     },[search])
 
-    // var id;
-    // function debounc(){
-    //         if(id){
-    //             clearTimeout(id)
-    //         }
-    //         id=setTimeout(()=>{
-    //         data()
-    //     },3000)
-    // }
-
-
     return(
 
         <div>
@@ -123,7 +108,6 @@ export const Weather = () => {
                     className="Search_bar_input"
                     onKeyPress={  EnterKey}
                     onChange={Handelchange}
-                    // oninput={debounc(data, 1000)}
                     value={search}
                 />
 
@@ -195,13 +179,13 @@ export const Weather = () => {
                 <div className="pres_humi">
                     <span>
                         <p>
-                            Pressure :  <span>  {pressure}hpa </span>
+                         Pressure :  <span>  {pressure}hpa </span>
                         </p>
                     </span>
 
                     <span>
                         <p>
-                        Humidity :   <span>  {humdity}% </span>
+                         Humidity :   <span>  {humdity}% </span>
                         </p>
                     </span>
                 </div>
